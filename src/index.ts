@@ -79,6 +79,10 @@ export function sendMsg(from: number, password: string, to: number, content: str
 }
 
 export function sendMsgWithCI() {
+  if (!process.env.CI) {
+    throw new Error("this method can only be used in ci environment");
+  }
+  
   const { FROM, PASSWORD, TO, CONTENT, IMAGE_PATH, DATA_DIR } = process.env
   if (!FROM || !PASSWORD) {
     throw new Error("the send message robot's account or password is missing");
