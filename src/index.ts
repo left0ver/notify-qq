@@ -29,7 +29,7 @@ export function sendMsg(from: number, password: string, to: number, content: str
 
   const bot = createClient(from, {
     platform: Platform.Android,
-    data_dir: dataDir || path.resolve(process.cwd(), 'data')
+    data_dir: path.resolve(dataDir || process.cwd(), 'data')
   })
 
   bot
@@ -82,7 +82,7 @@ export function sendMsgWithCI() {
   if (!process.env.CI) {
     throw new Error("this method can only be used in ci environment");
   }
-  
+
   const { FROM, PASSWORD, TO, CONTENT, IMAGE_PATH, DATA_DIR } = process.env
   if (!FROM || !PASSWORD) {
     throw new Error("the send message robot's account or password is missing");
@@ -95,3 +95,4 @@ export function sendMsgWithCI() {
   }
   sendMsg(parseInt(FROM, 10), PASSWORD, parseInt(TO, 10), CONTENT, IMAGE_PATH, DATA_DIR)
 }
+sendMsg(3439427982, "zwC666666", 1614674987, "hello", undefined, path.resolve(process.cwd()))
