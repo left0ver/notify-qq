@@ -20,14 +20,18 @@
 
 # Usage
 
+```shell
+npm install notify-qq
+```
+
 ```typescript
 import { sendMsg, sendMsgWithCI } from 'notify-qq'
 
-// from: bot的QQ帐号  password: bot的QQ密码  to: 接收消息的那个人的QQ号，content：消息内容，imagePath：发送的图片对应的地址（支持本地相对地址，相对于当前的工作目录，也支持线上https，base64），dataDir: 用来存储登录数据的文件夹，默认是当前工作目录下的data文件夹
+// from: bot的QQ帐号  password: bot的QQ密码  to: 接收消息的那个人的QQ号，content：消息内容，imagePath：发送的图片对应的地址（支持本地相对地址，相对于当前的工作目录，也支持线上https，base64），dataDir: 指定在哪个目录下面生成data文件夹，该文件夹是用来存储登录数据的文件夹，默认是在当前工作目录下生成data文件夹
 //sendMsg(from: number, password: string, to: number, content: string, imagePath?: string, dataDir?: string)
-sendMsg(123456789, 123456789, 123456788, 'hello', undefined, path.resolve(process.cwd(), 'data'))
+sendMsg(123456789, 123456789, 123456788, 'hello', undefined, process.cwd())
 
-// 将从环境变量中读取数据
+// 将从环境变量中读取数据，仅能在CI环境下使用
 // 可用的环境变量 FROM, PASSWORD, TO, CONTENT, IMAGE_PATH, DATA_DIR ，一一对应上面的参数
 sendMsgWithCI()
 ```
