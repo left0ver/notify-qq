@@ -1,0 +1,53 @@
+{
+  "name": "notify-qq",
+  "version": "0.0.1",
+  "main": "./dist/index.js",
+  "author": {
+    "name": "left0ver",
+    "url": "https://github.com/left0ver"
+  },
+  "files": [
+    "dist"
+  ],
+  "types": "./dist/index.d.ts",
+  "exports": {
+    ".": {
+      "require": "./dist/index.js",
+      "import": "./dist/index.mjs"
+    }
+  },
+  "license": "MIT",
+  "homepage": "https://github.com/left0ver/notify-qq#readme",
+  "keywords": [
+    "notify",
+    "qq",
+    "qq-ci",
+    "notify-ci"
+  ],
+  "bugs": {
+    "url": "https://github.com/left0ver/dq-cli/issues"
+  },
+  "description": "使用qq来进行消息通知",
+  "publishConfig": {
+    "registry": "https://registry.npmjs.org/",
+    "access": "public"
+  },
+  "scripts": {
+    "start": "ts-node src/index.ts",
+    "build": "tsup src/index.ts --format cjs,esm --dts --clean --target esnext",
+    "postinstall": "yarn patch-package",
+    "prepublishOnly": "yarn build"
+  },
+  "dependencies": {
+    "oicq": "^2.3.1",
+    "patch-package": "^6.5.0"
+  },
+  "devDependencies": {
+    "@types/node": "^18.11.16",
+    "esno": "^0.16.3",
+    "release-it": "^15.5.1",
+    "ts-node": "^10.9.1",
+    "tsup": "^6.5.0",
+    "typescript": "^4.9.4"
+  }
+}
