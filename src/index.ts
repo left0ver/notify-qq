@@ -83,8 +83,6 @@ export function sendMsg(from: number, password: string, to: number, content: str
       console.log('send message successful')
       bot.logout()
       console.log('logout successful')
-    }).catch((error) => {
-      console.log(error)
     })
   })
 
