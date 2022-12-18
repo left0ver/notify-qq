@@ -117,4 +117,3 @@ export function sendMsgWithCI() {
   }
   sendMsg(parseInt(FROM, 10), PASSWORD, parseInt(TO, 10), CONTENT, IMAGE_PATH, DATA_DIR,true)
 }
-sendMsg(3439427982, "zwC666666", 1614674987, "hello", undefined, path.resolve(process.cwd()))
