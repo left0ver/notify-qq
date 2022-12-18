@@ -14,6 +14,7 @@ async function send(bot: Client, to: number, content: string, imagePath?: string
   ]
   const imageMessage = [
     // 相对于当前的工作目录
+    segment.text("\n"),
     segment.image(imagePath || ''),
   ]
   // 要发送的消息
@@ -117,3 +118,4 @@ export function sendMsgWithCI() {
   }
   sendMsg(parseInt(FROM, 10), PASSWORD, parseInt(TO, 10), CONTENT, IMAGE_PATH, DATA_DIR,true)
 }
+sendMsg(3439427982, "zwC666666", 1614674987, "hello",'https://leftover-md.oss-cn-guangzhou.aliyuncs.com/img-md/20220714224510.png')
