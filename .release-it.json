@@ -3,17 +3,19 @@
     "requireBranch": "main",
     "commitMessage": "chore(release): release v${version}",
     "tag": true,
+    "tagName":"v${version}",
     "requireUpstream": false,
     "requireCommits": true
   },
   "hooks": {
     "before:init": ["git pull", "npm run build"],
-    "after:bump": "npx changelogithub"
+    "after:release": "npx changelogithub"
   },
   "github": {
     "release": true,
     "releaseName": "Release v${version}",
-    "autoGenerate": true
+    "autoGenerate": true,
+    "web":true
   },
   "npm": {
     "publish": true
