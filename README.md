@@ -27,11 +27,21 @@ npm install notify-qq
 ```typescript
 import { sendMsg, sendMsgWithCI } from 'notify-qq'
 
-// from: bot的QQ帐号  password: bot的QQ密码  to: 接收消息的那个人的QQ号，content：消息内容，imagePath：发送的图片对应的地址（支持本地相对地址，相对于当前的工作目录，也支持线上https，base64），dataDir: 指定在哪个目录下面生成data文件夹，该文件夹是用来存储登录数据的文件夹，默认是在当前工作目录下生成data文件夹
-//sendMsg(from: number, password: string, to: number, content: string, imagePath?: string, dataDir?: string)
+/* from: bot的QQ帐号（required）
+   password: bot的QQ密码 (required）
+   to: 接收消息的那个人的QQ号，(required）
+   content：消息内容，(required）
+   imagePath：发送的图片对应的地址（支持本地相对地址，相对于当前的工作目录，也支持线上https，base64）(optional)
+   dataDir: 指定在哪个目录下面生成data文件夹，该文件夹是用来存储登录数据的文件夹，默认是在当前工作目录下生成 data 文件夹 ,(optional, default:process.cwd())
+   strict:严格模式，若为true，则需要手动登录的时候将抛出异常，为false则提示手动登录,(optional,default:false)
+  */ 
+//sendMsg(from: number, password: string, to: number, content: string, imagePath?: string, dataDir?: string，strict?:boolean)
 sendMsg(123456789, 123456789, 123456788, 'hello', undefined, process.cwd())
 
-// 将从环境变量中读取数据，仅能在CI环境下使用
+// 将从环境变量中读取数据，仅能在CI环境下使用,CI环境下默认strict:true，需要手动登录则抛出异常
 // 可用的环境变量 FROM, PASSWORD, TO, CONTENT, IMAGE_PATH, DATA_DIR ，一一对应上面的参数
 sendMsgWithCI()
 ```
+
+# License
+[MIT](./LICENSE)
