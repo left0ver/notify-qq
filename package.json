@@ -45,6 +45,7 @@
   },
   "devDependencies": {
     "@types/node": "^18.11.16",
+    "changelogithub": "^0.12.7",
     "esno": "^0.16.3",
     "release-it": "^15.5.1",
     "ts-node": "^10.9.1",
