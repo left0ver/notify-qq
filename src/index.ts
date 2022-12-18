@@ -13,6 +13,7 @@ async function send(bot: Client, to: number, content: string, imagePath?: string
     segment.text(content)
   ]
   const imageMessage = [
+    segment.text("\n"),
     // 相对于当前的工作目录
     segment.image(imagePath || ''),
   ]
