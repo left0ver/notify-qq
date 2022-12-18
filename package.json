@@ -36,7 +36,8 @@
     "start": "ts-node src/index.ts",
     "build": "tsup src/index.ts --format cjs,esm --dts --clean --target esnext",
     "postinstall": "yarn patch-package",
-    "prepublishOnly": "yarn build"
+    "prepublishOnly": "yarn build",
+    "release": "release-it"
   },
   "dependencies": {
     "oicq": "^2.3.1",
