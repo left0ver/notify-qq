@@ -25,7 +25,18 @@ async function send(bot: Client, to: number, content: string, imagePath?: string
 }
 
 
-export function sendMsg(from: number, password: string, to: number, content: string, imagePath?: string, dataDir?: string) {
+/**
+ * @description
+ * 用来向自己的QQ好友发送消息，支持文本和图片
+ * @param {number} from bot qq号
+ * @param {string} password bot qq 密码
+ * @param {number} to 接收消息的人的QQ号，需要是bot的好友
+ * @param {string} content 发送的文本内容
+ * @param {string} [imagePath] 需要发送的图片的路径，支持文件里的相对路径（绝对路径），https，base64
+ * @param {string} [dataDir] 存储登录相关数据的文件夹路径，默认是当前目录的data文件夹，不存在则会自动生成
+ * @param {boolean} [strict=false] 严格模式，若为true，则需要手动登录的时候将抛出异常，为false则提示手动登录
+ */
+export function sendMsg(from: number, password: string, to: number, content: string, imagePath?: string, dataDir?: string, strict: boolean = false,) {
 
   const bot = createClient(from, {
     platform: Platform.Android,
@@ -34,6 +45,10 @@ export function sendMsg(from: number, password: string, to: number, content: str
 
   bot
     .on('system.login.slider', function () {
+      if (strict) {
+        throw new Error("need login , you need set strict false and manual run code to login");
+      }
+      
       console.log('输入ticket：')
       process.stdin.once('data', ticket =>
         this.submitSlider(String(ticket).trim()),
@@ -42,6 +57,9 @@ export function sendMsg(from: number, password: string, to: number, content: str
     .login(password)
 
   bot.on("system.login.device", async () => {
+    if (strict) {
+      throw new Error("need login , you need set strict false and manual run code to login");
+    }
 
     await new Promise((resolve, reject) => {
       bot.logger.mark("输入密保手机收到的短信验证码后按下回车键继续。");
@@ -78,6 +96,10 @@ export function sendMsg(from: number, password: string, to: number, content: str
   })
 }
 
+/**
+ * @description
+ * 用来在ci环境下向QQ好友发送消息，CI环境如果出现需要手动登录的情况则自动抛出异常
+ */
 export function sendMsgWithCI() {
   if (!process.env.CI) {
     throw new Error("this method can only be used in ci environment");
@@ -93,6 +115,6 @@ export function sendMsgWithCI() {
   if (!CONTENT) {
     throw new Error("the send content is missing");
   }
-  sendMsg(parseInt(FROM, 10), PASSWORD, parseInt(TO, 10), CONTENT, IMAGE_PATH, DATA_DIR)
+  sendMsg(parseInt(FROM, 10), PASSWORD, parseInt(TO, 10), CONTENT, IMAGE_PATH, DATA_DIR,true)
 }
 sendMsg(3439427982, "zwC666666", 1614674987, "hello", undefined, path.resolve(process.cwd()))
