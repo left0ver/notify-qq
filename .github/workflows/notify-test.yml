@@ -1,0 +1,42 @@
+name: notify-test
+
+on:
+  schedule:
+    - cron: 00 13 * * *
+  workflow_dispatch:
+
+env:
+  TZ: "Asia/Shanghai"
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      # - uses: szenius/set-timezone@v1.0
+      #   with:
+      #     timezoneLinux: "Asia/Shanghai"
+
+      - name: Set Job URL
+        id: url
+        run: echo "url=$GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID" >> $GITHUB_OUTPUT
+        
+      - name: test-notify-qq
+        run: ${{ secrets.COMMAND }}
+
+      - name: Notify
+        uses: dawidd6/action-send-mail@master
+        if: failure()
+        with:
+          server_address: smtp.qq.com
+          server_port: 465
+          username: ${{ secrets.MAIL_USERNAME }}
+          password: ${{ secrets.MAIL_PASSWORD }}
+          subject: notify-qq-test
+          body: qq-notify-test-fail,job URL:${{ steps.url.outputs.url }}
+          to: ${{ secrets.MAIL_USERNAME }}
+          from: GitHub Actions
+          content_type: text/plain
